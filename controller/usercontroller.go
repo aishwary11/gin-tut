@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	"gin.com/aishwary11/models"
 	"gin.com/aishwary11/utils"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,7 +13,7 @@ import (
 )
 
 func Login(c *gin.Context) {
-	var user utils.User
+	var user models.User
 	if err := c.BindJSON(&user); err != nil {
 		utils.ResponseHelper(c, http.StatusBadRequest, "Invalid request body", nil)
 		return
@@ -20,7 +21,7 @@ func Login(c *gin.Context) {
 	collection := utils.GetCollection("users")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	var foundUser utils.User
+	var foundUser models.User
 	err := collection.FindOne(ctx, bson.M{"email": user.Email, "name": user.Name}).Decode(&foundUser)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {

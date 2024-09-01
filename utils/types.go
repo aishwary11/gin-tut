@@ -1,5 +1,7 @@
 package utils
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type Item struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
@@ -7,7 +9,7 @@ type Item struct {
 }
 
 type User struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	ID    primitive.ObjectID `bson:"_id,omitempty" json:"id"`
+	Name  string             `bson:"name" json:"name"`
+	Email string             `bson:"email" json:"email"`
 }

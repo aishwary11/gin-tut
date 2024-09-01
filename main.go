@@ -6,6 +6,7 @@ import (
 
 	"gin.com/aishwary11/middleware"
 	"gin.com/aishwary11/routes"
+	"gin.com/aishwary11/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -15,6 +16,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	utils.ConnectDB()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
